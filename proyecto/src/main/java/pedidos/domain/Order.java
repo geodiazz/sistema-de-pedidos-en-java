@@ -10,7 +10,7 @@ public class Order {
 
 
     private int id;
-    private String estado;
+    private OrderStatus estado;
     private List<OrderItem> items;
 
 
@@ -23,11 +23,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getEstado() {
+    public OrderStatus getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(OrderStatus estado) {
         this.estado = estado;
     }
 
@@ -40,7 +40,7 @@ public class Order {
     public Order(){
         this.items = new ArrayList<>();
     }
-    public Order (int id, String estado, List<OrderItem> items){
+    public Order (int id, OrderStatus estado, List<OrderItem> items){
         this.id = id;
         this.estado = estado;
         this.items = items;
