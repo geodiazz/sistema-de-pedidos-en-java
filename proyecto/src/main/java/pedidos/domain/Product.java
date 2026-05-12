@@ -4,8 +4,8 @@ public class Product {
 
     private static int idContador = 1;
     private int idProducto;
-    private String nombreProducto;
-    private double precioProducto;
+    private String nombre;
+    private double precio;
 
     //getters y setters
 
@@ -16,35 +16,40 @@ public class Product {
         return idProducto;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public void setNombre(String nombre) {
+        if (nombre == null){
+            throw new NullPointerException("no se permiten nombres nulos en el producto");
+        }
+        if (nombre.isBlank()){
+        throw new IllegalArgumentException("el nombre del producto no puede estar vacio");
+        }
+        this.nombre = nombre;
     }
 
-    public double getPrecioProducto() {
-        return precioProducto;
+    public double getPrecio() {
+        return precio;
     }
 
-    public void setPrecioProducto(double precioProducto) {
-        this.precioProducto = precioProducto;
+    public void setPrecio(double precio) {
+
+        if (precio <1){
+       throw new IllegalArgumentException("el precio del producto no puede ser menor que 1");
+        }
+        this.precio = precio;
     }
 
-    //constructores
+    //constructor
 
-    public Product (){
-        // el id se asigna automaticamente y se autoincrementa, gracias a la variable idcontador
-        idProducto = idContador;
-        idContador++;
-    }
 
     public Product(String nombreProducto, double precioProducto){
         idProducto = idContador;
         idContador++;
-        this.nombreProducto = nombreProducto;
-        this.precioProducto = precioProducto;
+        setNombre(nombreProducto);
+        setPrecio(precioProducto);
     }
 
 }
