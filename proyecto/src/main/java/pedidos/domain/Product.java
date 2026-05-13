@@ -22,7 +22,7 @@ public class Product {
 
     public void setNombre(String nombre) {
         if (nombre == null){
-            throw new NullPointerException("no se permiten nombres nulos en el producto");
+            throw new IllegalArgumentException("no se permiten nombres nulos en el producto");
         }
         if (nombre.isBlank()){
         throw new IllegalArgumentException("el nombre del producto no puede estar vacio");

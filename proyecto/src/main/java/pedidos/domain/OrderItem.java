@@ -29,6 +29,9 @@ public class OrderItem {
 
     // constructor
     public OrderItem (Product product, int cantidad ){
+        if (product == null){
+            throw new IllegalArgumentException("no se puede asignar un producto nulo");
+        }
         this.product = product;
         this.precioUnitario = product.getPrecio();
         setCantidad(cantidad);
@@ -37,7 +40,7 @@ public class OrderItem {
 
     //metodos
 
-    public double subtotal(double precioUnitario, int cantidad){
-        return (precioUnitario * cantidad);
+    public double subtotal(){
+        return (this.precioUnitario * this.cantidad);
     }
 }
