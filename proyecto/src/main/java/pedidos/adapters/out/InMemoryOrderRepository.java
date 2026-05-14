@@ -1,5 +1,7 @@
 package pedidos.adapters.out;
 
-public class InMemoryOrderRepository {
+import pedidos.ports.out.OrderRepository;
+
+public class InMemoryOrderRepository implements OrderRepository {
 
 }
