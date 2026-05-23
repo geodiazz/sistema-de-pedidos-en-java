@@ -28,6 +28,8 @@ public class Order {
     }
 
     public List<OrderItem> getItems() {
+        id = counterId;
+        counterId++;
         return items;
     }
 
