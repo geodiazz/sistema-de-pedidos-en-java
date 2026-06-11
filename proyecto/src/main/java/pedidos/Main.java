@@ -3,63 +3,73 @@ package pedidos;
 import pedidos.adapters.out.InMemoryOrderRepository;
 import pedidos.application.CreateOrderUseCase;
 import pedidos.application.GetOrderUseCase;
-import pedidos.domain.Order;
-import pedidos.domain.OrderItem;
-import pedidos.domain.OrderStatus;
-import pedidos.domain.Product;
+
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // repository
+        // Repository
         InMemoryOrderRepository repository =
                 new InMemoryOrderRepository();
 
-
-        // use cases
+        // Use Cases
         CreateOrderUseCase createOrderUseCase =
                 new CreateOrderUseCase(repository);
 
         GetOrderUseCase getOrderUseCase =
                 new GetOrderUseCase(repository);
 
+        Scanner sc = new Scanner(System.in);
 
-        // productos
-        Product laptop = new Product("Laptop", 1500);
+        int opcion;
 
-        Product mouse = new Product("Mouse", 50);
+        do {
 
+            opcion = mostrarMenu(sc);
 
-        // order items
-        OrderItem item1 = new OrderItem(laptop, 2);
+            switch (opcion) {
 
-        OrderItem item2 = new OrderItem(mouse, 3);
+                case 1:
+                    System.out.println("Crear producto");
+                    break;
 
+                case 2:
+                    System.out.println("Crear pedido");
+                    break;
 
-        // pedido
-        Order order = new Order();
+                case 3:
+                    System.out.println("Buscar pedido");
+                    break;
 
-        order.setEstado(OrderStatus.CREATED);
+                case 4:
+                    System.out.println("Mostrar total");
+                    break;
 
-        order.addItem(item1);
-        order.addItem(item2);
+                case 5:
+                    System.out.println("Saliendo...");
+                    break;
 
+                default:
+                    System.out.println("Opción inválida");
+            }
 
-        // guardar pedido
-        createOrderUseCase.createOrder(order);
+        } while (opcion != 5);
 
+        sc.close();
+    }
 
-        // buscar pedido
-        Order foundOrder =
-                getOrderUseCase.findById(order.getId());
+    public static int mostrarMenu(Scanner sc) {
 
+        System.out.println("\n===== SISTEMA DE PEDIDOS =====");
+        System.out.println("1. Crear producto");
+        System.out.println("2. Crear pedido");
+        System.out.println("3. Buscar pedido");
+        System.out.println("4. Mostrar total de un pedido");
+        System.out.println("5. Salir");
+        System.out.print("Seleccione una opción: ");
 
-        // mostrar resultado
-        System.out.println("ID Pedido: " + foundOrder.getId());
-
-        System.out.println("Estado: " + foundOrder.getEstado());
-
-        System.out.println("Total: " + foundOrder.total());
+        return sc.nextInt();
     }
 }
