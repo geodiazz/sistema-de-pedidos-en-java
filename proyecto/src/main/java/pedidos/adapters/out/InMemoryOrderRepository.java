@@ -14,11 +14,9 @@ public class InMemoryOrderRepository implements OrderRepository {
 
     @Override
     public void save(Order order) {
-
         if (order == null) {
             throw new IllegalArgumentException("el pedido no puede ser null");
         }
-
         orders.add(order);
     }
 
