@@ -11,7 +11,12 @@ public class CreateProductUseCase {
         this.repository = repository;
     }
     public void create(String nombre, double precio){
+        if (repository.existsByName(nombre)){
+            throw new IllegalArgumentException("Ya existe un producto con ese nombre, intentelo de nuevo");
+        }
+
         Product product = new Product(nombre, precio);
         repository.save(product);
+
     }
 }

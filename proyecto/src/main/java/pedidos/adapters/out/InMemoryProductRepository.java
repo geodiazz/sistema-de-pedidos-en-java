@@ -23,4 +23,15 @@ public class InMemoryProductRepository implements ProductRepository {
     public List<Product> findAll() {
         return new ArrayList<>(products.values());
     }
+
+    @Override
+    public boolean existsByName(String nombre) {
+        for (Product product : products.values()) {
+            if (product.getNombre().equals(nombre)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
