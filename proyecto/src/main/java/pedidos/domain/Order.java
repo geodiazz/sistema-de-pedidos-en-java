@@ -1,7 +1,4 @@
 package pedidos.domain;
-
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
@@ -9,7 +6,7 @@ public class Order {
     //atributos de cada pedidos
 
     private static int counterId = 0;
-    private int id;
+    private final int id;
     private OrderStatus estado;
     private List<OrderItem> items;
 
@@ -23,37 +20,50 @@ public class Order {
         return estado;
     }
 
-    public void setEstado(OrderStatus estado) {
-        this.estado = estado;
-    }
-
     public List<OrderItem> getItems() {
         return items;
     }
 
 
     // constructores
-    public Order(){
-        this.items = new ArrayList<>();
-    }
-    public Order ( OrderStatus estado, List<OrderItem> items){
-
+    public Order ( List<OrderItem> items){
+        if (items.isEmpty()){
+            throw new IllegalArgumentException("la lista no puede estar vacia");
+        }
         id = counterId;
         counterId++;
-        if (estado == null || items == null){
-            throw new IllegalArgumentException("no se permiten valores nulos");
-        }
-        this.estado = estado;
+        this.estado = OrderStatus.CREATED;
         this.items = items;
     }
 
     //metodos
 
     public void addItem(OrderItem item){
-        if (item == null){
-            throw new IllegalArgumentException("no se aceptan items invalidos");
-        }
         items.add(item);
+    }
+    public void enProceso(){
+        if (this.estado == OrderStatus.CREATED){
+            this.estado = OrderStatus.IN_PROGRESS;
+        }
+        else {
+            throw new IllegalArgumentException("no se puede asignar el estado del pedido a un estado anterior");
+        }
+    }
+    public void enviado(){
+        if (this.estado == OrderStatus.IN_PROGRESS){
+            this.estado = OrderStatus.SHIPPED;
+        }
+        else {
+            throw new IllegalArgumentException("no se puede asignar el estado del pedido a un estado anterior");
+        }
+    }
+    public void  pagado(){
+        if (this.estado == OrderStatus.SHIPPED){
+            this.estado = OrderStatus.PAID;
+        }
+        else {
+            throw new IllegalArgumentException("no se puede asignar el estado del pedido a un estado anterior");
+        }
     }
     public double total(){
         double total = 0;

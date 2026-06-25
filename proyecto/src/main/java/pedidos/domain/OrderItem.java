@@ -24,13 +24,14 @@ public class OrderItem {
         if (cantidad<1){
             throw new IllegalArgumentException("la cantidad no puede ser menor que 1");
         }
-        this.cantidad = cantidad;
+        //!!!
+        this.cantidad = cantidad + this.cantidad;
     }
 
     // constructor
     public OrderItem (Product product, int cantidad ){
-        if (product == null){
-            throw new IllegalArgumentException("no se puede asignar un producto nulo");
+        if (cantidad>1){
+            throw new IllegalArgumentException("no se permiten cantidades menores que 1.");
         }
         this.product = product;
         this.precioUnitario = product.getPrecio();
