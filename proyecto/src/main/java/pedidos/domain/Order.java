@@ -1,4 +1,5 @@
 package pedidos.domain;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
@@ -21,48 +22,54 @@ public class Order {
     }
 
     public List<OrderItem> getItems() {
-        return items;
+        return List.copyOf(this.items);
     }
 
 
     // constructores
     public Order ( List<OrderItem> items){
+        if (items == null){
+            throw new IllegalArgumentException("la lista no puede ser nula");
+        }
         if (items.isEmpty()){
             throw new IllegalArgumentException("la lista no puede estar vacia");
         }
         id = counterId;
         counterId++;
         this.estado = OrderStatus.CREATED;
-        this.items = items;
+        this.items = new ArrayList<>(items);
     }
 
     //metodos
 
     public void addItem(OrderItem item){
+        if (item == null){
+            throw new IllegalArgumentException("el item no puede ser nulo");
+        }
         items.add(item);
     }
-    public void enProceso(){
+    public void procesar(){
         if (this.estado == OrderStatus.CREATED){
             this.estado = OrderStatus.IN_PROGRESS;
         }
         else {
-            throw new IllegalArgumentException("no se puede asignar el estado del pedido a un estado anterior");
+            throw new IllegalArgumentException("solo un pedido creado puede pasar a estar en proceso ");
         }
     }
-    public void enviado(){
+    public void enviar(){
         if (this.estado == OrderStatus.IN_PROGRESS){
             this.estado = OrderStatus.SHIPPED;
         }
         else {
-            throw new IllegalArgumentException("no se puede asignar el estado del pedido a un estado anterior");
+            throw new IllegalArgumentException("solo un pedido en proceso puede pasar a enviado");
         }
     }
-    public void  pagado(){
+    public void marcarComoPagado(){
         if (this.estado == OrderStatus.SHIPPED){
             this.estado = OrderStatus.PAID;
         }
         else {
-            throw new IllegalArgumentException("no se puede asignar el estado del pedido a un estado anterior");
+            throw new IllegalArgumentException("solo un pedido enviado puede pasar a pagado");
         }
     }
     public double total(){
