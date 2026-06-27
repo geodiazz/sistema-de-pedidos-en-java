@@ -46,8 +46,16 @@ public class Order {
         if (item == null){
             throw new IllegalArgumentException("el item no puede ser nulo");
         }
-        items.add(item);
+        for (int i = 0; i < items.size(); i++) {
+            if (item.getProduct() == items.get(i).getProduct()){
+                int cantidad = item.getCantidad() + items.get(i).getCantidad();
+                items.set(i, new OrderItem(item.getProduct(), cantidad));
+                return;
+            }
+        }
+            items.add(item);
     }
+
     public void procesar(){
         if (this.estado == OrderStatus.CREATED){
             this.estado = OrderStatus.IN_PROGRESS;

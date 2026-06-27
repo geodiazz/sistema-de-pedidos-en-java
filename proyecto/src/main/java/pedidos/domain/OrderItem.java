@@ -1,8 +1,11 @@
 package pedidos.domain;
+
+
+
 public class OrderItem {
-    private Product product;
-    private double precioUnitario;
-    private int cantidad;
+    private final Product product;
+    private final double precioUnitario;
+    private final int cantidad;
 
 
     //getters y setters
@@ -20,22 +23,17 @@ public class OrderItem {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
-        if (cantidad<1){
-            throw new IllegalArgumentException("la cantidad no puede ser menor que 1");
-        }
-        //!!!
-        this.cantidad = cantidad + this.cantidad;
-    }
-
     // constructor
     public OrderItem (Product product, int cantidad ){
+        if (product == null){
+            throw new IllegalArgumentException("el producto no puede ser nulo");
+        }
         if (cantidad>1){
             throw new IllegalArgumentException("no se permiten cantidades menores que 1.");
         }
         this.product = product;
         this.precioUnitario = product.getPrecio();
-        setCantidad(cantidad);
+        this.cantidad = cantidad;
 
     }
 
