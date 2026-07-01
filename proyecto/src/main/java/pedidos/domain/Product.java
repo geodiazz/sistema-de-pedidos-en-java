@@ -1,5 +1,7 @@
 package pedidos.domain;
 
+import java.util.Objects;
+
 public class Product {
 
     private static int idContador = 1;
@@ -39,4 +41,20 @@ public class Product {
         this.precio = precio;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+     if (obj instanceof Product){
+         Product product = (Product) obj;
+         // creo que utilizar '==' en la siguiente linea no es pertienente pero no se de que otra forma hacerlo
+         return this.idProducto == product.getIdProducto();
+     }
+     else {
+         return false;
+     }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idProducto, nombre, precio);
+    }
 }
