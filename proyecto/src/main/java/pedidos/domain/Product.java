@@ -6,8 +6,8 @@ public class Product {
 
     private static int idContador = 1;
     private final int idProducto;
-    private String nombre;
-    private double precio;
+    private final String nombre;
+    private final double precio;
 
     //getters y setters
     public int getIdProducto() {
@@ -45,16 +45,13 @@ public class Product {
     public boolean equals(Object obj) {
      if (obj instanceof Product){
          Product product = (Product) obj;
-         // creo que utilizar '==' en la siguiente linea no es pertienente pero no se de que otra forma hacerlo
          return this.idProducto == product.getIdProducto();
      }
-     else {
          return false;
-     }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idProducto, nombre, precio);
+        return Objects.hash(idProducto);
     }
 }

@@ -1,6 +1,7 @@
 package pedidos.adapters.out;
 
 import pedidos.domain.Order;
+import pedidos.domain.Product;
 import pedidos.ports.out.OrderRepository;
 
 import java.util.ArrayList;
@@ -32,5 +33,9 @@ public class InMemoryOrderRepository implements OrderRepository {
         }
 
         return null;
+    }
+    @Override
+    public List<Order> findAll() {
+        return new ArrayList<>(orders);
     }
 }
