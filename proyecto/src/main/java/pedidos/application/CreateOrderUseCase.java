@@ -1,7 +1,11 @@
 package pedidos.application;
 
 import pedidos.domain.Order;
+import pedidos.domain.OrderItem;
+import pedidos.domain.Product;
 import pedidos.ports.out.OrderRepository;
+
+import java.util.ArrayList;
 
 public class CreateOrderUseCase {
     private OrderRepository repository;
@@ -11,13 +15,12 @@ public class CreateOrderUseCase {
         this.repository = repository;
     }
 
-    public void createOrder(Order order) {
+    public void createOrder(int id, int cantidad) {
+        OrderItem item = new OrderItem(getById(id), cantidad);
+        ArrayList<OrderItem> list = new ArrayList();
+        list.add(item);
+        repository.save(new Order(list));
 
-        if (order == null) {
-            throw new IllegalArgumentException("el pedido no puede ser null");
-        }
-
-        repository.save(order);
     }
 
 

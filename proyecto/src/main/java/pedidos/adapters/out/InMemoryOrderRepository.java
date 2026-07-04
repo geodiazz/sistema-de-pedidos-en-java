@@ -38,4 +38,15 @@ public class InMemoryOrderRepository implements OrderRepository {
     public List<Order> findAll() {
         return new ArrayList<>(orders);
     }
+
+    public void prosesar(int id) {
+        findOrderById(id).procesar();
+    }
+    public void enviar(int id){
+        findOrderById(id).enviar();
+    }
+
+    public void marcarComoPagado(int id) {
+        findOrderById(id).marcarComoPagado();
+    }
 }
