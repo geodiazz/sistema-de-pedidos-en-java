@@ -14,9 +14,6 @@ public class Main {
         InMemoryOrderRepository repository =
                 new InMemoryOrderRepository();
 
-        // Use Cases
-        CreateOrderUseCase createOrderUseCase =
-                new CreateOrderUseCase(repository);
 
         GetOrderUseCase getOrderUseCase =
                 new GetOrderUseCase(repository);
