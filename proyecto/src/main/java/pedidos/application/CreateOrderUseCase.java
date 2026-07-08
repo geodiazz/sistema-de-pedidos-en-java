@@ -2,6 +2,7 @@ package pedidos.application;
 
 import pedidos.domain.Order;
 import pedidos.domain.OrderItem;
+import pedidos.domain.Product;
 import pedidos.ports.out.OrderRepository;
 import pedidos.ports.out.ProductRepository;
 
@@ -19,14 +20,14 @@ public class CreateOrderUseCase {
     }
     public void createOrder(List<OrderItemRecuest> items) {
         List<OrderItem> orderItems = new ArrayList<>();
-        for (int i = 0; i < items.size(); i++) {
-            if (productRepository.findById(i) == null){
-                throw new IllegalArgumentException("El producto buscado no existe.");
+        for ((OrderItemRequest itemRequest : items){
+            Product product = productRepository.findById(itemRequest.getProductId());
+            if (product == null){
+                throw new IllegalArgumentException("el id ingresado ni puede ser nulo.");
                 return;
             }
-            orderItems.add(new OrderItem(productRepository.findById(i),));
+            orderItems.add(new OrderItem(product,itemRecuest.getCantidad()));
         }
-
         orderRepository.save(new Order(orderItems));
 
     }
