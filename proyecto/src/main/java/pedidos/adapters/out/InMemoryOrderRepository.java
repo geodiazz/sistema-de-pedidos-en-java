@@ -1,7 +1,6 @@
 package pedidos.adapters.out;
 
 import pedidos.domain.Order;
-import pedidos.domain.Product;
 import pedidos.ports.out.OrderRepository;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class InMemoryOrderRepository implements OrderRepository {
 
 
     @Override
-    public Order findOrderById(int id) {
+    public Order findById(int id) {
 
         for (Order order : orders) {
 
@@ -40,13 +39,13 @@ public class InMemoryOrderRepository implements OrderRepository {
     }
 
     public void prosesar(int id) {
-        findOrderById(id).procesar();
+        findById(id).procesar();
     }
     public void enviar(int id){
-        findOrderById(id).enviar();
+        findById(id).enviar();
     }
 
     public void marcarComoPagado(int id) {
-        findOrderById(id).marcarComoPagado();
+        findById(id).marcarComoPagado();
     }
 }

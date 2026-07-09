@@ -1,8 +1,7 @@
 package pedidos;
 
 import pedidos.adapters.out.InMemoryOrderRepository;
-import pedidos.application.CreateOrderUseCase;
-import pedidos.application.GetOrderUseCase;
+import pedidos.application.FindOrderByIdUseCase;
 
 import java.util.Scanner;
 
@@ -15,8 +14,8 @@ public class Main {
                 new InMemoryOrderRepository();
 
 
-        GetOrderUseCase getOrderUseCase =
-                new GetOrderUseCase(repository);
+        FindOrderByIdUseCase getOrderUseCase =
+                new FindOrderByIdUseCase(repository);
 
         Scanner sc = new Scanner(System.in);
 

@@ -1,5 +1,6 @@
 package pedidos.application;
 
+import pedidos.application.dto.OrderItemRequest;
 import pedidos.domain.Order;
 import pedidos.domain.OrderItem;
 import pedidos.domain.Product;
@@ -18,15 +19,14 @@ public class CreateOrderUseCase {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
     }
-    public void createOrder(List<OrderItemRecuest> items) {
+    public void createOrder(List<OrderItemRequest> items) {
         List<OrderItem> orderItems = new ArrayList<>();
-        for ((OrderItemRequest itemRequest : items){
-            Product product = productRepository.findById(itemRequest.getProductId());
+        for (OrderItemRequest itemRequest : items){
+            Product product = productRepository.findById(itemRequest.getIdProducto());
             if (product == null){
-                throw new IllegalArgumentException("el id ingresado ni puede ser nulo.");
-                return;
+                throw new IllegalArgumentException("no existe ningun producto con el id ingresado");
             }
-            orderItems.add(new OrderItem(product,itemRecuest.getCantidad()));
+            orderItems.add(new OrderItem(product,itemRequest.getCantidad()));
         }
         orderRepository.save(new Order(orderItems));
 

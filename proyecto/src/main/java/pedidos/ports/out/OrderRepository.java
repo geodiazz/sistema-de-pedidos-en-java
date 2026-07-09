@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OrderRepository {
     void save(Order order);
-    Order findOrderById(int id);
+    Order findById(int id);
     List<Order> findAll();
     void prosesar(int id);
     void enviar(int id);
